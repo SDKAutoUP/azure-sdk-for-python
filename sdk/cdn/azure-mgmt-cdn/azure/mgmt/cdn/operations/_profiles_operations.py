@@ -107,7 +107,7 @@ class ProfilesOperations(object):
 
     def list_by_resource_group(
             self, resource_group_name, custom_headers=None, raw=False, **operation_config):
-        """Lists all of the CDN profiles within a resource group.
+        """Lists all of the CDN profiles within a resource group. xx.
 
         :param resource_group_name: Name of the Resource group within the
          Azure subscription.
