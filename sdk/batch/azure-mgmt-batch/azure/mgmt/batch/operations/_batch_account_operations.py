@@ -27,7 +27,7 @@ class BatchAccountOperations(object):
     :param config: Configuration of service client.
     :param serializer: An object model serializer.
     :param deserializer: An object model deserializer.
-    :ivar api_version: The API version to use for the request. Constant value: "2020-05-01".
+    :ivar api_version: The API version to be used with the HTTP request. Constant value: "2020-09-01".
     """
 
     models = models
@@ -37,7 +37,7 @@ class BatchAccountOperations(object):
         self._client = client
         self._serialize = serializer
         self._deserialize = deserializer
-        self.api_version = "2020-05-01"
+        self.api_version = "2020-09-01"
 
         self.config = config
 
@@ -231,10 +231,10 @@ class BatchAccountOperations(object):
     update.metadata = {'url': '/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Batch/batchAccounts/{accountName}'}
 
 
-    def _delete_initial(
+    def _delete_abc_initial(
             self, resource_group_name, account_name, custom_headers=None, raw=False, **operation_config):
         # Construct URL
-        url = self.delete.metadata['url']
+        url = self.delete_abc.metadata['url']
         path_format_arguments = {
             'resourceGroupName': self._serialize.url("resource_group_name", resource_group_name, 'str'),
             'accountName': self._serialize.url("account_name", account_name, 'str', max_length=24, min_length=3, pattern=r'^[a-zA-Z0-9]+$'),
@@ -273,7 +273,7 @@ class BatchAccountOperations(object):
             client_raw_response.add_headers(header_dict)
             return client_raw_response
 
-    def delete(
+    def delete_abc(
             self, resource_group_name, account_name, custom_headers=None, raw=False, polling=True, **operation_config):
         """Deletes the specified Batch account.
 
@@ -293,7 +293,7 @@ class BatchAccountOperations(object):
          ~msrestazure.azure_operation.AzureOperationPoller[~msrest.pipeline.ClientRawResponse[None]]
         :raises: :class:`CloudError<msrestazure.azure_exceptions.CloudError>`
         """
-        raw_result = self._delete_initial(
+        raw_result = self._delete_abc_initial(
             resource_group_name=resource_group_name,
             account_name=account_name,
             custom_headers=custom_headers,
@@ -317,7 +317,7 @@ class BatchAccountOperations(object):
         elif polling is False: polling_method = NoPolling()
         else: polling_method = polling
         return LROPoller(self._client, raw_result, get_long_running_output, polling_method)
-    delete.metadata = {'url': '/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Batch/batchAccounts/{accountName}'}
+    delete_abc.metadata = {'url': '/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Batch/batchAccounts/{accountName}'}
 
     def get(
             self, resource_group_name, account_name, custom_headers=None, raw=False, **operation_config):
