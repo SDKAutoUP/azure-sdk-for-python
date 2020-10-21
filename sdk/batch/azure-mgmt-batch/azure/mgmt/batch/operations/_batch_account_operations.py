@@ -27,7 +27,7 @@ class BatchAccountOperations(object):
     :param config: Configuration of service client.
     :param serializer: An object model serializer.
     :param deserializer: An object model deserializer.
-    :ivar api_version: The API version to use for the request. Constant value: "2020-05-01".
+    :ivar api_version: The API version to be used with the HTTP request. Constant value: "2020-09-01".
     """
 
     models = models
@@ -37,7 +37,7 @@ class BatchAccountOperations(object):
         self._client = client
         self._serialize = serializer
         self._deserialize = deserializer
-        self.api_version = "2020-05-01"
+        self.api_version = "2020-09-01"
 
         self.config = config
 
@@ -381,7 +381,7 @@ class BatchAccountOperations(object):
         return deserialized
     get.metadata = {'url': '/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Batch/batchAccounts/{accountName}'}
 
-    def list(
+    def unnamed_method(
             self, custom_headers=None, raw=False, **operation_config):
         """Gets information about the Batch accounts associated with the
         subscription.
@@ -399,7 +399,7 @@ class BatchAccountOperations(object):
         def prepare_request(next_link=None):
             if not next_link:
                 # Construct URL
-                url = self.list.metadata['url']
+                url = self.unnamed_method.metadata['url']
                 path_format_arguments = {
                     'subscriptionId': self._serialize.url("self.config.subscription_id", self.config.subscription_id, 'str')
                 }
@@ -446,7 +446,7 @@ class BatchAccountOperations(object):
         deserialized = models.BatchAccountPaged(internal_paging, self._deserialize.dependencies, header_dict)
 
         return deserialized
-    list.metadata = {'url': '/subscriptions/{subscriptionId}/providers/Microsoft.Batch/batchAccounts'}
+    unnamed_method.metadata = {'url': '/subscriptions/{subscriptionId}/providers/Microsoft.Batch/batchAccounts'}
 
     def list_by_resource_group(
             self, resource_group_name, custom_headers=None, raw=False, **operation_config):
