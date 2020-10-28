@@ -27,7 +27,7 @@ class BatchAccountOperations(object):
     :param config: Configuration of service client.
     :param serializer: An object model serializer.
     :param deserializer: An object model deserializer.
-    :ivar api_version: The API version to use for the request. Constant value: "2020-05-01".
+    :ivar api_version: The API version to be used with the HTTP request. Constant value: "2020-09-01".
     """
 
     models = models
@@ -37,15 +37,15 @@ class BatchAccountOperations(object):
         self._client = client
         self._serialize = serializer
         self._deserialize = deserializer
-        self.api_version = "2020-05-01"
+        self.api_version = "2020-09-01"
 
         self.config = config
 
 
-    def _create_initial(
+    def _create_x_initial(
             self, resource_group_name, account_name, parameters, custom_headers=None, raw=False, **operation_config):
         # Construct URL
-        url = self.create.metadata['url']
+        url = self.create_x.metadata['url']
         path_format_arguments = {
             'resourceGroupName': self._serialize.url("resource_group_name", resource_group_name, 'str'),
             'accountName': self._serialize.url("account_name", account_name, 'str', max_length=24, min_length=3, pattern=r'^[a-z0-9]+$'),
@@ -97,7 +97,7 @@ class BatchAccountOperations(object):
 
         return deserialized
 
-    def create(
+    def create_x(
             self, resource_group_name, account_name, parameters, custom_headers=None, raw=False, polling=True, **operation_config):
         """Creates a new Batch account with the specified parameters. Existing
         accounts cannot be updated with this API and should instead be updated
@@ -129,7 +129,7 @@ class BatchAccountOperations(object):
          ~msrestazure.azure_operation.AzureOperationPoller[~msrest.pipeline.ClientRawResponse[~azure.mgmt.batch.models.BatchAccount]]
         :raises: :class:`CloudError<msrestazure.azure_exceptions.CloudError>`
         """
-        raw_result = self._create_initial(
+        raw_result = self._create_x_initial(
             resource_group_name=resource_group_name,
             account_name=account_name,
             parameters=parameters,
@@ -159,7 +159,7 @@ class BatchAccountOperations(object):
         elif polling is False: polling_method = NoPolling()
         else: polling_method = polling
         return LROPoller(self._client, raw_result, get_long_running_output, polling_method)
-    create.metadata = {'url': '/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Batch/batchAccounts/{accountName}'}
+    create_x.metadata = {'url': '/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Batch/batchAccounts/{accountName}'}
 
     def update(
             self, resource_group_name, account_name, parameters, custom_headers=None, raw=False, **operation_config):
