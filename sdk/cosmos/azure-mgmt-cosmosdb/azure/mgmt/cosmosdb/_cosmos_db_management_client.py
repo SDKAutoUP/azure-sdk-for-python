@@ -32,8 +32,6 @@ from .operations import TableResourcesOperations
 from .operations import CassandraResourcesOperations
 from .operations import GremlinResourcesOperations
 from .operations import NotebookWorkspacesOperations
-from .operations import PrivateLinkResourcesOperations
-from .operations import PrivateEndpointConnectionsOperations
 from . import models
 
 
@@ -81,10 +79,6 @@ class CosmosDBManagementClient(SDKClient):
     :vartype gremlin_resources: azure.mgmt.cosmosdb.operations.GremlinResourcesOperations
     :ivar notebook_workspaces: NotebookWorkspaces operations
     :vartype notebook_workspaces: azure.mgmt.cosmosdb.operations.NotebookWorkspacesOperations
-    :ivar private_link_resources: PrivateLinkResources operations
-    :vartype private_link_resources: azure.mgmt.cosmosdb.operations.PrivateLinkResourcesOperations
-    :ivar private_endpoint_connections: PrivateEndpointConnections operations
-    :vartype private_endpoint_connections: azure.mgmt.cosmosdb.operations.PrivateEndpointConnectionsOperations
 
     :param credentials: Credentials needed for the client to connect to Azure.
     :type credentials: :mod:`A msrestazure Credentials
@@ -101,6 +95,7 @@ class CosmosDBManagementClient(SDKClient):
         super(CosmosDBManagementClient, self).__init__(self.config.credentials, self.config)
 
         client_models = {k: v for k, v in models.__dict__.items() if isinstance(v, type)}
+        self.api_version = '2020-09-01'
         self._serialize = Serializer(client_models)
         self._deserialize = Deserializer(client_models)
 
@@ -141,8 +136,4 @@ class CosmosDBManagementClient(SDKClient):
         self.gremlin_resources = GremlinResourcesOperations(
             self._client, self.config, self._serialize, self._deserialize)
         self.notebook_workspaces = NotebookWorkspacesOperations(
-            self._client, self.config, self._serialize, self._deserialize)
-        self.private_link_resources = PrivateLinkResourcesOperations(
-            self._client, self.config, self._serialize, self._deserialize)
-        self.private_endpoint_connections = PrivateEndpointConnectionsOperations(
             self._client, self.config, self._serialize, self._deserialize)
